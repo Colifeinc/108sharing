@@ -1,12 +1,13 @@
 version: '3.3'
 services:
   web: &web
-    image: 108sharing_server_demo
+    image: 108sharing_demo
     environment:
       REDIS_URL: redis://redis:6379
       DISABLE_BASIC_AUTH: disable
       RAILS_MASTER_KEY: abcd1234
-      DATABASE_URL: postgres://postgres:@db/108sharing_server_production
+      SECRET_KEY_BASE: 1234abcd1234abcd
+      DATABASE_URL: postgres://postgres:@db/108sharing_demo_production
       USE_LOCAL_STORAGE: "yes"
       # USE_SECURE_SESSION: 1
       DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
@@ -33,8 +34,10 @@ services:
     image: postgres:12-alpine
     restart: always
     environment:
-      POSTGRES_DB: 108sharing_server_production
+      POSTGRES_DB: 108sharing_demo_production
       TZ: "Asia/Tokyo"
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+      POSTGRES_USER: postgres
     volumes:
       - db:/var/lib/postgresql/data
 

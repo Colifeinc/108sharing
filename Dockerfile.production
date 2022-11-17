@@ -1,4 +1,4 @@
-FROM node:12.16.1-alpine as node
+FROM node:14.16.0-alpine as node
 
 RUN mkdir -p /opt
 RUN ls -al /usr/local/bin/node
@@ -10,10 +10,10 @@ RUN yarn install
 
 # =====================================
 
-FROM ruby:2.6.5-alpine as bundles
+FROM ruby:2.7.2-alpine as bundles
 
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler:2.1.4
+RUN gem install bundler:2.2.14
 RUN bundle config set path vendor/bundle && bundle binstubs --path=binstubs || bundle config
 RUN apk add git
 RUN apk add build-base
@@ -24,14 +24,14 @@ RUN bundle install --jobs=4
 
 # =====================================
 
-FROM ruby:2.6.5-alpine
+FROM ruby:2.7.2-alpine
 
 RUN apk add libxml2 libxslt
 RUN apk add postgresql-client
 RUN apk add tzdata
 RUN apk add graphicsmagick
 RUN apk add openssl
-RUN gem install bundler:2.1.4
+RUN gem install bundler:2.2.14
 
 ARG SECRET_KEY_BASE
 

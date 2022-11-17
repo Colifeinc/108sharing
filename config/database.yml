@@ -6,13 +6,11 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV.fetch('DATABASE_BASENAME', '108sharing') + '_' + Rails.env %>
-  url: <%= ENV['DATABASE_URL'] %>
+  database: <%= ENV.fetch('DATABASE_BASENAME', '108sharing') + '_development' %>
 
 test:
   <<: *default
-  database: <%= ENV.fetch('DATABASE_BASENAME', '108sharing') + '_' + Rails.env %>
-  url: <%= ENV['TEST_DATABASE_URL'] %>
+  database: <%= ENV.fetch('DATABASE_BASENAME', '108sharing') + '_test' %>
 
 production:
   <<: *default
